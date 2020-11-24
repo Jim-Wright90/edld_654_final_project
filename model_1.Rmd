@@ -1,0 +1,209 @@
+---
+title: "Model 1"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(tune)
+library(glmnet)
+library(baguette)
+library(parsnip)
+library(doParallel)
+library(vip)
+library(pdp)
+library(patchwork)
+library(ranger)
+library(future)
+```
+
+## Data
+
+```{r, include=FALSE}
+set.seed(3000)
+data <- read_csv(here::here("data", "train.csv")) %>% 
+  select(-classification)
+
+data <- dplyr::sample_frac(data, size = 0.01)
+
+library(rio)
+frl <- import("https://nces.ed.gov/ccd/Data/zip/ccd_sch_033_1718_l_1a_083118.zip",
+              setclass = "tbl_df")  %>% 
+  janitor::clean_names()  %>% 
+  filter(st == "OR")  %>%
+  select(ncessch, lunch_program, student_count)  %>% 
+  mutate(student_count = replace_na(student_count, 0))  %>% 
+  pivot_wider(names_from = lunch_program,
+              values_from = student_count)  %>% 
+  janitor::clean_names()  %>% 
+  mutate(ncessch = as.double(ncessch))
+
+#install.packages("bit64")
+library(bit64)
+
+stu_counts <- import("https://github.com/datalorax/ach-gap-variability/raw/master/data/achievement-gaps-geocoded.csv",
+                     setclass = "tbl_df")  %>% 
+  filter(state == "OR" & year == 1718)  %>% 
+  count(ncessch, wt = n)  %>% 
+  mutate(ncessch = as.double(ncessch))
+
+frl <- left_join(frl, stu_counts)
+frl
+
+str(frl)
+
+frl <- frl %>% 
+ mutate(prop_frl = free_lunch_qualified / n,
+       prop_reduced_lunch = reduced_price_lunch_qualified / n)
+
+
+frl
+
+```
+
+## Splits 
+
+```{r, include=TRUE}
+set.seed(3000)
+
+(data_split <- initial_split(data))
+
+train <- training(data_split)
+test <- testing(data_split)
+
+class(data_split)
+class(train)
+class(test)
+
+cv_splits <- vfold_cv(train, v = 10)
+
+```
+
+## Recipe 
+
+```{r, include=TRUE}
+rec <- recipe(score ~ ., train) %>% 
+  step_mutate(tst_dt = as.numeric(lubridate::mdy_hms(tst_dt))) %>% 
+  update_role(contains("id"), ncessch, new_role = "id vars") %>% 
+  step_novel(all_nominal()) %>%
+  step_unknown(all_nominal()) %>%
+  step_nzv(all_predictors()) %>%
+  step_medianimpute(all_numeric(), -all_outcomes(), -has_role("id vars")) %>%
+  step_dummy(all_nominal(), -has_role("id vars")) %>%
+  step_nzv(all_predictors()) %>% 
+  step_interact(~lat:lon)
+
+rec
+
+
+```
+
+```{r, include=FALSE}
+baked_train <- rec %>% prep() %>% bake(train)
+
+baked_train
+```
+
+## Tune Model 
+
+```{r, include=TRUE} 
+tictoc::tic()
+final_mod <- linear_reg(penalty = tune(), 
+                          mixture = tune())  %>% 
+  set_engine("glmnet") %>%
+  set_mode("regression")  
+
+grid <- grid_regular(penalty(), mixture(), levels = c(10, 5))
+
+final_mod_tuning <- tune_grid(final_mod, preprocessor = rec, resamples = cv_splits, grid = grid, 
+                               control = control_grid(verbose = TRUE))
+tictoc::toc()
+
+
+```
+
+```{r, include=TRUE}
+collect_metrics(final_mod_tuning)
+```
+
+
+```{r, include=TRUE}
+final_mod_tuning %>%
+    show_best(metric = "rmse", n = 5)
+```
+
+```{r, include=TRUE}
+final_mod_tuning_select_best <- final_mod_tuning %>% 
+  select_best(metric = "rmse")
+
+final_mod_tuning_select_best
+```
+
+```{r, include=TRUE}
+finalized_mod <- final_mod %>%
+    finalize_model(final_mod_tuning_select_best)
+    
+
+finalized_mod
+
+```
+
+```{r, include=TRUE}
+rec_final <- rec %>% 
+    finalize_recipe(final_mod_tuning_select_best)
+
+rec_final
+```
+
+```{r, include=TRUE}
+#finalize model
+
+final_mod_2 <- linear_reg(penalty = 0.01, 
+                        mixture = 0.3)  %>% 
+  set_engine("glmnet") %>%
+  set_mode("regression")  
+ 
+
+full_fit_2 <- fit(final_mod_2, 
+                score ~ ., data = select(baked_train, -contains("id"), -ncessch))
+
+```
+
+## Model Prediction 
+
+```{r, include=FALSE}
+full_test <- read_csv(here::here("data", "train.csv"))
+
+head(full_test)
+```
+
+```{r, include=TRUE}
+baked_test <- rec_final %>% prep() %>% bake(full_test)
+
+head(baked_test)
+```
+
+```{r, include=TRUE}
+model_1_prediction <- predict(full_fit_2, new_data = baked_test)
+
+head(model_1_prediction)
+```
+
+```{r, include=TRUE}
+pred_frame <- tibble(Id = full_test$id, Predicted = model_1_prediction$.pred)
+
+
+head(pred_frame)
+```
+
+```{r, include=FALSE}
+write_csv(pred_frame, "model_1_predictions.csv")
+```

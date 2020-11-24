@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Model 2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="website-custom.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">EDLD 654 Final Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="model_1.html">Model 1</a>
+</li>
+<li>
+  <a href="model_2.html">Model 2</a>
+</li>
+<li>
+  <a href="model_3.html">Model 3</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/Jim-Wright90/edld_654_final_project.git">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Model 2</h1>
+
+</div>
+
+
+<div id="data" class="section level2">
+<h2>Data</h2>
+<pre class="r"><code>set.seed(3000)
+data &lt;- read_csv(here::here(&quot;data&quot;, &quot;train.csv&quot;)) %&gt;% 
+  select(-classification)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_character(),
+##   id = col_double(),
+##   attnd_dist_inst_id = col_double(),
+##   attnd_schl_inst_id = col_double(),
+##   enrl_grd = col_double(),
+##   calc_admn_cd = col_logical(),
+##   partic_dist_inst_id = col_double(),
+##   partic_schl_inst_id = col_double(),
+##   score = col_double(),
+##   classification = col_double(),
+##   ncessch = col_double(),
+##   lat = col_double(),
+##   lon = col_double()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>data &lt;- dplyr::sample_frac(data, size = 0.01)
+
+sheets &lt;- readxl::excel_sheets(here::here(&quot;data&quot;,
+&quot;fallmembershipreport_20192020.xlsx&quot;))
+
+ode_schools &lt;- readxl::read_xlsx(here::here(&quot;data&quot;,
+&quot;fallmembershipreport_20192020.xlsx&quot;), sheet = sheets[4])
+
+ethnicities &lt;- ode_schools %&gt;%
+select(attnd_schl_inst_id = `Attending School ID`,
+sch_name = `School Name`,
+contains(&quot;%&quot;)) %&gt;%
+janitor::clean_names()
+names(ethnicities) &lt;- gsub(&quot;x2019_20_percent&quot;, &quot;p&quot;, names(ethnicities))
+
+data &lt;- left_join(data, ethnicities)</code></pre>
+<pre><code>## Joining, by = &quot;attnd_schl_inst_id&quot;</code></pre>
+<pre class="r"><code>head(data)</code></pre>
+<pre><code>## # A tibble: 6 x 47
+##       id gndr  ethnic_cd attnd_dist_inst… attnd_schl_inst… enrl_grd calc_admn_cd
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt; &lt;lgl&gt;       
+## 1 188408 M     W                     1970              219        3 NA          
+## 2 211935 F     W                     2094              603        3 NA          
+## 3  56536 F     A                     2243             2782        7 NA          
+## 4 105175 F     W                     2142              770        6 NA          
+## 5 226880 M     W                     2252             1208        4 NA          
+## 6   3436 M     W                     2243             1176        5 NA          
+## # … with 40 more variables: tst_bnch &lt;chr&gt;, tst_dt &lt;chr&gt;, migrant_ed_fg &lt;chr&gt;,
+## #   ind_ed_fg &lt;chr&gt;, sp_ed_fg &lt;chr&gt;, tag_ed_fg &lt;chr&gt;, econ_dsvntg &lt;chr&gt;,
+## #   ayp_lep &lt;chr&gt;, stay_in_dist &lt;chr&gt;, stay_in_schl &lt;chr&gt;, dist_sped &lt;chr&gt;,
+## #   trgt_assist_fg &lt;chr&gt;, ayp_dist_partic &lt;chr&gt;, ayp_schl_partic &lt;chr&gt;,
+## #   ayp_dist_prfrm &lt;chr&gt;, ayp_schl_prfrm &lt;chr&gt;, rc_dist_partic &lt;chr&gt;,
+## #   rc_schl_partic &lt;chr&gt;, rc_dist_prfrm &lt;chr&gt;, rc_schl_prfrm &lt;chr&gt;,
+## #   partic_dist_inst_id &lt;dbl&gt;, partic_schl_inst_id &lt;dbl&gt;, lang_cd &lt;chr&gt;,
+## #   tst_atmpt_fg &lt;chr&gt;, grp_rpt_dist_partic &lt;chr&gt;, grp_rpt_schl_partic &lt;chr&gt;,
+## #   grp_rpt_dist_prfrm &lt;chr&gt;, grp_rpt_schl_prfrm &lt;chr&gt;, score &lt;dbl&gt;,
+## #   ncessch &lt;dbl&gt;, lat &lt;dbl&gt;, lon &lt;dbl&gt;, sch_name &lt;chr&gt;,
+## #   p_american_indian_alaska_native &lt;dbl&gt;, p_asian &lt;dbl&gt;,
+## #   p_native_hawaiian_pacific_islander &lt;dbl&gt;, p_black_african_american &lt;dbl&gt;,
+## #   p_hispanic_latino &lt;dbl&gt;, p_white &lt;dbl&gt;, p_multiracial &lt;dbl&gt;</code></pre>
+<pre class="r"><code>colnames(data)</code></pre>
+<pre><code>##  [1] &quot;id&quot;                                 &quot;gndr&quot;                              
+##  [3] &quot;ethnic_cd&quot;                          &quot;attnd_dist_inst_id&quot;                
+##  [5] &quot;attnd_schl_inst_id&quot;                 &quot;enrl_grd&quot;                          
+##  [7] &quot;calc_admn_cd&quot;                       &quot;tst_bnch&quot;                          
+##  [9] &quot;tst_dt&quot;                             &quot;migrant_ed_fg&quot;                     
+## [11] &quot;ind_ed_fg&quot;                          &quot;sp_ed_fg&quot;                          
+## [13] &quot;tag_ed_fg&quot;                          &quot;econ_dsvntg&quot;                       
+## [15] &quot;ayp_lep&quot;                            &quot;stay_in_dist&quot;                      
+## [17] &quot;stay_in_schl&quot;                       &quot;dist_sped&quot;                         
+## [19] &quot;trgt_assist_fg&quot;                     &quot;ayp_dist_partic&quot;                   
+## [21] &quot;ayp_schl_partic&quot;                    &quot;ayp_dist_prfrm&quot;                    
+## [23] &quot;ayp_schl_prfrm&quot;                     &quot;rc_dist_partic&quot;                    
+## [25] &quot;rc_schl_partic&quot;                     &quot;rc_dist_prfrm&quot;                     
+## [27] &quot;rc_schl_prfrm&quot;                      &quot;partic_dist_inst_id&quot;               
+## [29] &quot;partic_schl_inst_id&quot;                &quot;lang_cd&quot;                           
+## [31] &quot;tst_atmpt_fg&quot;                       &quot;grp_rpt_dist_partic&quot;               
+## [33] &quot;grp_rpt_schl_partic&quot;                &quot;grp_rpt_dist_prfrm&quot;                
+## [35] &quot;grp_rpt_schl_prfrm&quot;                 &quot;score&quot;                             
+## [37] &quot;ncessch&quot;                            &quot;lat&quot;                               
+## [39] &quot;lon&quot;                                &quot;sch_name&quot;                          
+## [41] &quot;p_american_indian_alaska_native&quot;    &quot;p_asian&quot;                           
+## [43] &quot;p_native_hawaiian_pacific_islander&quot; &quot;p_black_african_american&quot;          
+## [45] &quot;p_hispanic_latino&quot;                  &quot;p_white&quot;                           
+## [47] &quot;p_multiracial&quot;</code></pre>
+<pre class="r"><code>data %&gt;% 
+  select(sch_name)</code></pre>
+<pre><code>## # A tibble: 1,894 x 1
+##    sch_name                       
+##    &lt;chr&gt;                          
+##  1 Crooked River Elementary School
+##  2 Marcola Elementary School      
+##  3 Stoller Middle School          
+##  4 Whiteaker Middle School        
+##  5 Amity Elementary School        
+##  6 Terra Linda Elementary School  
+##  7 Hillside Elementary            
+##  8 Dorena School                  
+##  9 Athey Creek Middle School      
+## 10 East Elementary School         
+## # … with 1,884 more rows</code></pre>
+</div>
+<div id="split-and-resample" class="section level2">
+<h2>Split and Resample</h2>
+<pre class="r"><code>set.seed(3000)
+data_split &lt;- initial_split(data, strata = &quot;score&quot;)
+
+set.seed(3000)
+train &lt;- training(data_split)
+test &lt;- testing(data_split)
+
+set.seed(3000)
+data_cv &lt;- vfold_cv(train, strata = &quot;score&quot;)</code></pre>
+</div>
+<div id="preprocess" class="section level2">
+<h2>Preprocess</h2>
+<pre class="r"><code>rec &lt;- recipe(
+    formula = score ~ ., data = train 
+  ) %&gt;%
+ step_mutate(tst_dt = lubridate::mdy_hms(tst_dt)) %&gt;%
+ update_role(contains(&quot;id&quot;), ncessch, sch_name, new_role = &quot;id&quot;) %&gt;%
+ step_novel(all_nominal(), -all_outcomes()) %&gt;%
+ step_unknown(all_nominal(), -all_outcomes()) %&gt;%
+ step_medianimpute(all_numeric()) %&gt;%
+ step_nzv(all_predictors(), freq_cut = 0, unique_cut = 0) %&gt;%
+ step_dummy(all_nominal(), -has_role(match = &quot;id&quot;), -all_outcomes()) %&gt;%
+ step_nzv(all_predictors())
+
+
+
+prep(rec)  </code></pre>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##         id          7
+##    outcome          1
+##  predictor         39
+## 
+## Training data contained 1422 data points and 1422 incomplete rows. 
+## 
+## Operations:
+## 
+## Variable mutation for tst_dt [trained]
+## Novel factor level assignment for gndr, ethnic_cd, tst_bnch, ... [trained]
+## Unknown factor level assignment for gndr, ethnic_cd, tst_bnch, ... [trained]
+## Median Imputation for id, attnd_dist_inst_id, ... [trained]
+## Sparse, unbalanced variable filter removed calc_admn_cd [trained]
+## Dummy variables from gndr, ethnic_cd, tst_bnch, migrant_ed_fg, ... [trained]
+## Sparse, unbalanced variable filter removed gndr_new, gndr_unknown, ... [trained]</code></pre>
+</div>
+<div id="model-and-workflow" class="section level2">
+<h2>Model and Workflow</h2>
+<pre class="r"><code>metrics_eval &lt;- metric_set(rmse,
+                           rsq,
+                           huber_loss)
+
+bag_model_tune &lt;- bag_tree() %&gt;% 
+  set_mode(&quot;regression&quot;) %&gt;% 
+  set_args(cost_complexity = tune(), min_n = tune()) %&gt;% 
+  set_engine(&quot;rpart&quot;, times = 10) 
+
+bagged_wflow &lt;- workflow() %&gt;%
+add_recipe(rec) %&gt;%
+add_model(bag_model_tune)
+
+
+
+tree_grid &lt;- grid_max_entropy(cost_complexity(), min_n(), size = 10) 
+
+plan(multisession) 
+tictoc::tic()
+bag_tune &lt;- tune_grid(bag_model_tune,
+                      rec,
+                      data_cv,
+                      grid = tree_grid,
+                      metrics = metrics_eval, 
+                      control = control_resamples(verbose = TRUE,
+                                                  save_pred = TRUE,
+                                                  extract = function(x) extract_model(x)))</code></pre>
+<pre><code>## i Fold01: recipe</code></pre>
+<pre><code>## ✓ Fold01: recipe</code></pre>
+<pre><code>## i Fold01: model  1/10</code></pre>
+<pre><code>## ✓ Fold01: model  1/10</code></pre>
+<pre><code>## i Fold01: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  2/10</code></pre>
+<pre><code>## ✓ Fold01: model  2/10</code></pre>
+<pre><code>## i Fold01: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  3/10</code></pre>
+<pre><code>## ✓ Fold01: model  3/10</code></pre>
+<pre><code>## i Fold01: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  4/10</code></pre>
+<pre><code>## ✓ Fold01: model  4/10</code></pre>
+<pre><code>## i Fold01: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  5/10</code></pre>
+<pre><code>## ✓ Fold01: model  5/10</code></pre>
+<pre><code>## i Fold01: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  6/10</code></pre>
+<pre><code>## ✓ Fold01: model  6/10</code></pre>
+<pre><code>## i Fold01: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  7/10</code></pre>
+<pre><code>## ✓ Fold01: model  7/10</code></pre>
+<pre><code>## i Fold01: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  8/10</code></pre>
+<pre><code>## ✓ Fold01: model  8/10</code></pre>
+<pre><code>## i Fold01: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model  9/10</code></pre>
+<pre><code>## ✓ Fold01: model  9/10</code></pre>
+<pre><code>## i Fold01: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold01: model 10/10</code></pre>
+<pre><code>## ✓ Fold01: model 10/10</code></pre>
+<pre><code>## i Fold01: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold02: recipe</code></pre>
+<pre><code>## ✓ Fold02: recipe</code></pre>
+<pre><code>## i Fold02: model  1/10</code></pre>
+<pre><code>## ✓ Fold02: model  1/10</code></pre>
+<pre><code>## i Fold02: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  2/10</code></pre>
+<pre><code>## ✓ Fold02: model  2/10</code></pre>
+<pre><code>## i Fold02: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  3/10</code></pre>
+<pre><code>## ✓ Fold02: model  3/10</code></pre>
+<pre><code>## i Fold02: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  4/10</code></pre>
+<pre><code>## ✓ Fold02: model  4/10</code></pre>
+<pre><code>## i Fold02: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  5/10</code></pre>
+<pre><code>## ✓ Fold02: model  5/10</code></pre>
+<pre><code>## i Fold02: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  6/10</code></pre>
+<pre><code>## ✓ Fold02: model  6/10</code></pre>
+<pre><code>## i Fold02: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  7/10</code></pre>
+<pre><code>## ✓ Fold02: model  7/10</code></pre>
+<pre><code>## i Fold02: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  8/10</code></pre>
+<pre><code>## ✓ Fold02: model  8/10</code></pre>
+<pre><code>## i Fold02: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model  9/10</code></pre>
+<pre><code>## ✓ Fold02: model  9/10</code></pre>
+<pre><code>## i Fold02: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold02: model 10/10</code></pre>
+<pre><code>## ✓ Fold02: model 10/10</code></pre>
+<pre><code>## i Fold02: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold03: recipe</code></pre>
+<pre><code>## ✓ Fold03: recipe</code></pre>
+<pre><code>## i Fold03: model  1/10</code></pre>
+<pre><code>## ✓ Fold03: model  1/10</code></pre>
+<pre><code>## i Fold03: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  2/10</code></pre>
+<pre><code>## ✓ Fold03: model  2/10</code></pre>
+<pre><code>## i Fold03: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  3/10</code></pre>
+<pre><code>## ✓ Fold03: model  3/10</code></pre>
+<pre><code>## i Fold03: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  4/10</code></pre>
+<pre><code>## ✓ Fold03: model  4/10</code></pre>
+<pre><code>## i Fold03: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  5/10</code></pre>
+<pre><code>## ✓ Fold03: model  5/10</code></pre>
+<pre><code>## i Fold03: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  6/10</code></pre>
+<pre><code>## ✓ Fold03: model  6/10</code></pre>
+<pre><code>## i Fold03: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  7/10</code></pre>
+<pre><code>## ✓ Fold03: model  7/10</code></pre>
+<pre><code>## i Fold03: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  8/10</code></pre>
+<pre><code>## ✓ Fold03: model  8/10</code></pre>
+<pre><code>## i Fold03: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model  9/10</code></pre>
+<pre><code>## ✓ Fold03: model  9/10</code></pre>
+<pre><code>## i Fold03: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold03: model 10/10</code></pre>
+<pre><code>## ✓ Fold03: model 10/10</code></pre>
+<pre><code>## i Fold03: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold04: recipe</code></pre>
+<pre><code>## ✓ Fold04: recipe</code></pre>
+<pre><code>## i Fold04: model  1/10</code></pre>
+<pre><code>## ✓ Fold04: model  1/10</code></pre>
+<pre><code>## i Fold04: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  2/10</code></pre>
+<pre><code>## ✓ Fold04: model  2/10</code></pre>
+<pre><code>## i Fold04: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  3/10</code></pre>
+<pre><code>## ✓ Fold04: model  3/10</code></pre>
+<pre><code>## i Fold04: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  4/10</code></pre>
+<pre><code>## ✓ Fold04: model  4/10</code></pre>
+<pre><code>## i Fold04: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  5/10</code></pre>
+<pre><code>## ✓ Fold04: model  5/10</code></pre>
+<pre><code>## i Fold04: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  6/10</code></pre>
+<pre><code>## ✓ Fold04: model  6/10</code></pre>
+<pre><code>## i Fold04: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  7/10</code></pre>
+<pre><code>## ✓ Fold04: model  7/10</code></pre>
+<pre><code>## i Fold04: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  8/10</code></pre>
+<pre><code>## ✓ Fold04: model  8/10</code></pre>
+<pre><code>## i Fold04: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model  9/10</code></pre>
+<pre><code>## ✓ Fold04: model  9/10</code></pre>
+<pre><code>## i Fold04: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold04: model 10/10</code></pre>
+<pre><code>## ✓ Fold04: model 10/10</code></pre>
+<pre><code>## i Fold04: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold05: recipe</code></pre>
+<pre><code>## ✓ Fold05: recipe</code></pre>
+<pre><code>## i Fold05: model  1/10</code></pre>
+<pre><code>## ✓ Fold05: model  1/10</code></pre>
+<pre><code>## i Fold05: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  2/10</code></pre>
+<pre><code>## ✓ Fold05: model  2/10</code></pre>
+<pre><code>## i Fold05: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  3/10</code></pre>
+<pre><code>## ✓ Fold05: model  3/10</code></pre>
+<pre><code>## i Fold05: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  4/10</code></pre>
+<pre><code>## ✓ Fold05: model  4/10</code></pre>
+<pre><code>## i Fold05: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  5/10</code></pre>
+<pre><code>## ✓ Fold05: model  5/10</code></pre>
+<pre><code>## i Fold05: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  6/10</code></pre>
+<pre><code>## ✓ Fold05: model  6/10</code></pre>
+<pre><code>## i Fold05: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  7/10</code></pre>
+<pre><code>## ✓ Fold05: model  7/10</code></pre>
+<pre><code>## i Fold05: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  8/10</code></pre>
+<pre><code>## ✓ Fold05: model  8/10</code></pre>
+<pre><code>## i Fold05: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model  9/10</code></pre>
+<pre><code>## ✓ Fold05: model  9/10</code></pre>
+<pre><code>## i Fold05: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold05: model 10/10</code></pre>
+<pre><code>## ✓ Fold05: model 10/10</code></pre>
+<pre><code>## i Fold05: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold06: recipe</code></pre>
+<pre><code>## ✓ Fold06: recipe</code></pre>
+<pre><code>## i Fold06: model  1/10</code></pre>
+<pre><code>## ✓ Fold06: model  1/10</code></pre>
+<pre><code>## i Fold06: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  2/10</code></pre>
+<pre><code>## ✓ Fold06: model  2/10</code></pre>
+<pre><code>## i Fold06: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  3/10</code></pre>
+<pre><code>## ✓ Fold06: model  3/10</code></pre>
+<pre><code>## i Fold06: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  4/10</code></pre>
+<pre><code>## ✓ Fold06: model  4/10</code></pre>
+<pre><code>## i Fold06: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  5/10</code></pre>
+<pre><code>## ✓ Fold06: model  5/10</code></pre>
+<pre><code>## i Fold06: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  6/10</code></pre>
+<pre><code>## ✓ Fold06: model  6/10</code></pre>
+<pre><code>## i Fold06: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  7/10</code></pre>
+<pre><code>## ✓ Fold06: model  7/10</code></pre>
+<pre><code>## i Fold06: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  8/10</code></pre>
+<pre><code>## ✓ Fold06: model  8/10</code></pre>
+<pre><code>## i Fold06: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model  9/10</code></pre>
+<pre><code>## ✓ Fold06: model  9/10</code></pre>
+<pre><code>## i Fold06: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold06: model 10/10</code></pre>
+<pre><code>## ✓ Fold06: model 10/10</code></pre>
+<pre><code>## i Fold06: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold07: recipe</code></pre>
+<pre><code>## ✓ Fold07: recipe</code></pre>
+<pre><code>## i Fold07: model  1/10</code></pre>
+<pre><code>## ✓ Fold07: model  1/10</code></pre>
+<pre><code>## i Fold07: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  2/10</code></pre>
+<pre><code>## ✓ Fold07: model  2/10</code></pre>
+<pre><code>## i Fold07: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  3/10</code></pre>
+<pre><code>## ✓ Fold07: model  3/10</code></pre>
+<pre><code>## i Fold07: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  4/10</code></pre>
+<pre><code>## ✓ Fold07: model  4/10</code></pre>
+<pre><code>## i Fold07: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  5/10</code></pre>
+<pre><code>## ✓ Fold07: model  5/10</code></pre>
+<pre><code>## i Fold07: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  6/10</code></pre>
+<pre><code>## ✓ Fold07: model  6/10</code></pre>
+<pre><code>## i Fold07: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  7/10</code></pre>
+<pre><code>## ✓ Fold07: model  7/10</code></pre>
+<pre><code>## i Fold07: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  8/10</code></pre>
+<pre><code>## ✓ Fold07: model  8/10</code></pre>
+<pre><code>## i Fold07: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model  9/10</code></pre>
+<pre><code>## ✓ Fold07: model  9/10</code></pre>
+<pre><code>## i Fold07: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold07: model 10/10</code></pre>
+<pre><code>## ✓ Fold07: model 10/10</code></pre>
+<pre><code>## i Fold07: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold08: recipe</code></pre>
+<pre><code>## ✓ Fold08: recipe</code></pre>
+<pre><code>## i Fold08: model  1/10</code></pre>
+<pre><code>## ✓ Fold08: model  1/10</code></pre>
+<pre><code>## i Fold08: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  2/10</code></pre>
+<pre><code>## ✓ Fold08: model  2/10</code></pre>
+<pre><code>## i Fold08: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  3/10</code></pre>
+<pre><code>## ✓ Fold08: model  3/10</code></pre>
+<pre><code>## i Fold08: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  4/10</code></pre>
+<pre><code>## ✓ Fold08: model  4/10</code></pre>
+<pre><code>## i Fold08: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  5/10</code></pre>
+<pre><code>## ✓ Fold08: model  5/10</code></pre>
+<pre><code>## i Fold08: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  6/10</code></pre>
+<pre><code>## ✓ Fold08: model  6/10</code></pre>
+<pre><code>## i Fold08: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  7/10</code></pre>
+<pre><code>## ✓ Fold08: model  7/10</code></pre>
+<pre><code>## i Fold08: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  8/10</code></pre>
+<pre><code>## ✓ Fold08: model  8/10</code></pre>
+<pre><code>## i Fold08: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model  9/10</code></pre>
+<pre><code>## ✓ Fold08: model  9/10</code></pre>
+<pre><code>## i Fold08: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold08: model 10/10</code></pre>
+<pre><code>## ✓ Fold08: model 10/10</code></pre>
+<pre><code>## i Fold08: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold09: recipe</code></pre>
+<pre><code>## ✓ Fold09: recipe</code></pre>
+<pre><code>## i Fold09: model  1/10</code></pre>
+<pre><code>## ✓ Fold09: model  1/10</code></pre>
+<pre><code>## i Fold09: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  2/10</code></pre>
+<pre><code>## ✓ Fold09: model  2/10</code></pre>
+<pre><code>## i Fold09: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  3/10</code></pre>
+<pre><code>## ✓ Fold09: model  3/10</code></pre>
+<pre><code>## i Fold09: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  4/10</code></pre>
+<pre><code>## ✓ Fold09: model  4/10</code></pre>
+<pre><code>## i Fold09: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  5/10</code></pre>
+<pre><code>## ✓ Fold09: model  5/10</code></pre>
+<pre><code>## i Fold09: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  6/10</code></pre>
+<pre><code>## ✓ Fold09: model  6/10</code></pre>
+<pre><code>## i Fold09: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  7/10</code></pre>
+<pre><code>## ✓ Fold09: model  7/10</code></pre>
+<pre><code>## i Fold09: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  8/10</code></pre>
+<pre><code>## ✓ Fold09: model  8/10</code></pre>
+<pre><code>## i Fold09: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model  9/10</code></pre>
+<pre><code>## ✓ Fold09: model  9/10</code></pre>
+<pre><code>## i Fold09: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold09: model 10/10</code></pre>
+<pre><code>## ✓ Fold09: model 10/10</code></pre>
+<pre><code>## i Fold09: model 10/10 (predictions)</code></pre>
+<pre><code>## i Fold10: recipe</code></pre>
+<pre><code>## ✓ Fold10: recipe</code></pre>
+<pre><code>## i Fold10: model  1/10</code></pre>
+<pre><code>## ✓ Fold10: model  1/10</code></pre>
+<pre><code>## i Fold10: model  1/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  2/10</code></pre>
+<pre><code>## ✓ Fold10: model  2/10</code></pre>
+<pre><code>## i Fold10: model  2/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  3/10</code></pre>
+<pre><code>## ✓ Fold10: model  3/10</code></pre>
+<pre><code>## i Fold10: model  3/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  4/10</code></pre>
+<pre><code>## ✓ Fold10: model  4/10</code></pre>
+<pre><code>## i Fold10: model  4/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  5/10</code></pre>
+<pre><code>## ✓ Fold10: model  5/10</code></pre>
+<pre><code>## i Fold10: model  5/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  6/10</code></pre>
+<pre><code>## ✓ Fold10: model  6/10</code></pre>
+<pre><code>## i Fold10: model  6/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  7/10</code></pre>
+<pre><code>## ✓ Fold10: model  7/10</code></pre>
+<pre><code>## i Fold10: model  7/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  8/10</code></pre>
+<pre><code>## ✓ Fold10: model  8/10</code></pre>
+<pre><code>## i Fold10: model  8/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model  9/10</code></pre>
+<pre><code>## ✓ Fold10: model  9/10</code></pre>
+<pre><code>## i Fold10: model  9/10 (predictions)</code></pre>
+<pre><code>## i Fold10: model 10/10</code></pre>
+<pre><code>## ✓ Fold10: model 10/10</code></pre>
+<pre><code>## i Fold10: model 10/10 (predictions)</code></pre>
+<pre class="r"><code>tictoc::toc()</code></pre>
+<pre><code>## 126.07 sec elapsed</code></pre>
+</div>
+<div id="best-estimates" class="section level2">
+<h2>Best Estimates</h2>
+<pre class="r"><code>show_best(bag_tune, &quot;rmse&quot;)</code></pre>
+<pre><code>## # A tibble: 5 x 8
+##   cost_complexity min_n .metric .estimator  mean     n std_err .config
+##             &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1  0.000000103       39 rmse    standard    98.7    10    2.44 Model07
+## 2  0.000000000255    29 rmse    standard    98.8    10    2.70 Model09
+## 3  0.0000630         38 rmse    standard    98.8    10    2.92 Model06
+## 4  0.00000000885     17 rmse    standard   100.     10    2.86 Model04
+## 5  0.00000199        27 rmse    standard   100.     10    2.67 Model05</code></pre>
+<pre class="r"><code>select_best(bag_tune, &quot;rmse&quot;)</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   cost_complexity min_n .config
+##             &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  
+## 1     0.000000103    39 Model07</code></pre>
+<pre class="r"><code>show_best(bag_tune, &quot;rsq&quot;)</code></pre>
+<pre><code>## # A tibble: 5 x 8
+##   cost_complexity min_n .metric .estimator  mean     n std_err .config
+##             &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1  0.000000103       39 rsq     standard   0.337    10  0.0139 Model07
+## 2  0.000000000255    29 rsq     standard   0.336    10  0.0147 Model09
+## 3  0.0000630         38 rsq     standard   0.335    10  0.0191 Model06
+## 4  0.00000000885     17 rsq     standard   0.324    10  0.0180 Model04
+## 5  0.00000199        27 rsq     standard   0.318    10  0.0143 Model05</code></pre>
+<pre class="r"><code>select_best(bag_tune, &quot;rsq&quot;)</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   cost_complexity min_n .config
+##             &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  
+## 1     0.000000103    39 Model07</code></pre>
+<pre class="r"><code>show_best(bag_tune, &quot;huber_loss&quot;)</code></pre>
+<pre><code>## # A tibble: 5 x 8
+##   cost_complexity min_n .metric    .estimator  mean     n std_err .config
+##             &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1  0.000000103       39 huber_loss standard    74.0    10    1.51 Model07
+## 2  0.0000630         38 huber_loss standard    74.6    10    1.59 Model06
+## 3  0.000000000255    29 huber_loss standard    75.0    10    1.53 Model09
+## 4  0.00000000885     17 huber_loss standard    75.6    10    1.82 Model04
+## 5  0.00000199        27 huber_loss standard    75.9    10    1.43 Model05</code></pre>
+<pre class="r"><code>select_best(bag_tune, &quot;huber_loss&quot;)</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   cost_complexity min_n .config
+##             &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;  
+## 1     0.000000103    39 Model07</code></pre>
+</div>
+<div id="bag-roots-function" class="section level2">
+<h2>Bag Roots Function</h2>
+<pre class="r"><code>bag_roots &lt;- function(x){
+  x %&gt;% 
+  select(.extracts) %&gt;% 
+  unnest(cols = c(.extracts)) %&gt;% 
+  mutate(models = map(.extracts,
+                  ~.x$model_df)) %&gt;% 
+  select(-.extracts) %&gt;% 
+  unnest(cols = c(models)) %&gt;% 
+  mutate(root = map_chr(model,
+                     ~as.character(.x$fit$frame[1, 1]))) %&gt;%
+  select(root)  
+}
+
+bag_roots(bag_tune)</code></pre>
+<pre><code>## # A tibble: 1,000 x 1
+##    root         
+##    &lt;chr&gt;        
+##  1 enrl_grd     
+##  2 enrl_grd     
+##  3 sp_ed_fg_Y   
+##  4 econ_dsvntg_Y
+##  5 enrl_grd     
+##  6 enrl_grd     
+##  7 enrl_grd     
+##  8 sp_ed_fg_Y   
+##  9 econ_dsvntg_Y
+## 10 econ_dsvntg_Y
+## # … with 990 more rows</code></pre>
+<pre class="r"><code>root &lt;- bag_roots(bag_tune)</code></pre>
+</div>
+<div id="plot" class="section level2">
+<h2>Plot</h2>
+<pre class="r"><code>root_count &lt;- root %&gt;% 
+  count(root)
+
+ggplot(root_count, aes(fct_reorder(root, n), n)) +
+  geom_col() +
+  coord_flip()</code></pre>
+<p><img src="Model_2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+<img alt="Creative Commons License" style="border-width:0" src="by-nc.png" width="65"/></a>
+</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+---
+title: "EDLD 654 Final Project"
+---
+
+Welcome to our final project for EDLD 654 Fall 2020. On this website, you will find the three models we developed to fit to the class data. 
+
+**Description of the Data used for the Models**
+
+
+```{r, include=FALSE}
+#rmarkdown::render_site()
+```

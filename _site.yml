@@ -1,0 +1,25 @@
+name: Management of Acquired Cognitive Impairments
+output_dir: '.'
+
+navbar:
+  title: EDLD 654 Final Project
+  left:
+  - text: Model 1
+    href: model_1.html
+  - text: Model 2
+    href: model_2.html
+  - text: Model 3
+    href: model_3.html
+  right:
+  - icon: fa-github
+    href: https://github.com/Jim-Wright90/edld_654_final_project.git
+
+output:
+  html_document:
+    theme: journal
+    css: website-custom.css
+    includes:
+      after_body: footer.html 
+    lib_dir: site_libs
+    self_contained: no
+

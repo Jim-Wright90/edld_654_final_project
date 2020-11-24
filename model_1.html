@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Model 1</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="site_libs/anchor-sections-1.0/anchor-sections.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="website-custom.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">EDLD 654 Final Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="model_1.html">Model 1</a>
+</li>
+<li>
+  <a href="model_2.html">Model 2</a>
+</li>
+<li>
+  <a href="model_3.html">Model 3</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/Jim-Wright90/edld_654_final_project.git">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Model 1</h1>
+
+</div>
+
+
+<div id="data" class="section level2">
+<h2>Data</h2>
+</div>
+<div id="splits" class="section level2">
+<h2>Splits</h2>
+<pre class="r"><code>set.seed(3000)
+
+(data_split &lt;- initial_split(data))</code></pre>
+<pre><code>## &lt;Analysis/Assess/Total&gt;
+## &lt;1421/473/1894&gt;</code></pre>
+<pre class="r"><code>train &lt;- training(data_split)
+test &lt;- testing(data_split)
+
+class(data_split)</code></pre>
+<pre><code>## [1] &quot;rsplit&quot;   &quot;mc_split&quot;</code></pre>
+<pre class="r"><code>class(train)</code></pre>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>class(test)</code></pre>
+<pre><code>## [1] &quot;tbl_df&quot;     &quot;tbl&quot;        &quot;data.frame&quot;</code></pre>
+<pre class="r"><code>cv_splits &lt;- vfold_cv(train, v = 10)</code></pre>
+</div>
+<div id="recipe" class="section level2">
+<h2>Recipe</h2>
+<pre class="r"><code>rec &lt;- recipe(score ~ ., train) %&gt;% 
+  step_mutate(tst_dt = as.numeric(lubridate::mdy_hms(tst_dt))) %&gt;% 
+  update_role(contains(&quot;id&quot;), ncessch, new_role = &quot;id vars&quot;) %&gt;% 
+  step_novel(all_nominal()) %&gt;%
+  step_unknown(all_nominal()) %&gt;%
+  step_nzv(all_predictors()) %&gt;%
+  step_medianimpute(all_numeric(), -all_outcomes(), -has_role(&quot;id vars&quot;)) %&gt;%
+  step_dummy(all_nominal(), -has_role(&quot;id vars&quot;)) %&gt;%
+  step_nzv(all_predictors()) %&gt;% 
+  step_interact(~lat:lon)
+
+rec</code></pre>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    id vars          6
+##    outcome          1
+##  predictor         32
+## 
+## Operations:
+## 
+## Variable mutation for tst_dt
+## Novel factor level assignment for all_nominal()
+## Unknown factor level assignment for all_nominal()
+## Sparse, unbalanced variable filter on all_predictors()
+## Median Imputation for all_numeric(), ...
+## Dummy variables from all_nominal(), -has_role(&quot;id vars&quot;)
+## Sparse, unbalanced variable filter on all_predictors()
+## Interactions with lat:lon</code></pre>
+</div>
+<div id="tune-model" class="section level2">
+<h2>Tune Model</h2>
+<pre class="r"><code>tictoc::tic()
+final_mod &lt;- linear_reg(penalty = tune(), 
+                          mixture = tune())  %&gt;% 
+  set_engine(&quot;glmnet&quot;) %&gt;%
+  set_mode(&quot;regression&quot;)  
+
+grid &lt;- grid_regular(penalty(), mixture(), levels = c(10, 5))
+
+final_mod_tuning &lt;- tune_grid(final_mod, preprocessor = rec, resamples = cv_splits, grid = grid, 
+                               control = control_grid(verbose = TRUE))</code></pre>
+<pre><code>## i Fold01: recipe</code></pre>
+<pre><code>## ✓ Fold01: recipe</code></pre>
+<pre><code>## i Fold01: model 1/5</code></pre>
+<pre><code>## ✓ Fold01: model 1/5</code></pre>
+<pre><code>## i Fold01: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold01: model 2/5</code></pre>
+<pre><code>## ✓ Fold01: model 2/5</code></pre>
+<pre><code>## i Fold01: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold01: model 3/5</code></pre>
+<pre><code>## ✓ Fold01: model 3/5</code></pre>
+<pre><code>## i Fold01: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold01: model 4/5</code></pre>
+<pre><code>## ✓ Fold01: model 4/5</code></pre>
+<pre><code>## i Fold01: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold01: model 5/5</code></pre>
+<pre><code>## ✓ Fold01: model 5/5</code></pre>
+<pre><code>## i Fold01: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold02: recipe</code></pre>
+<pre><code>## ✓ Fold02: recipe</code></pre>
+<pre><code>## i Fold02: model 1/5</code></pre>
+<pre><code>## ✓ Fold02: model 1/5</code></pre>
+<pre><code>## i Fold02: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold02: model 2/5</code></pre>
+<pre><code>## ✓ Fold02: model 2/5</code></pre>
+<pre><code>## i Fold02: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold02: model 3/5</code></pre>
+<pre><code>## ✓ Fold02: model 3/5</code></pre>
+<pre><code>## i Fold02: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold02: model 4/5</code></pre>
+<pre><code>## ✓ Fold02: model 4/5</code></pre>
+<pre><code>## i Fold02: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold02: model 5/5</code></pre>
+<pre><code>## ✓ Fold02: model 5/5</code></pre>
+<pre><code>## i Fold02: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold03: recipe</code></pre>
+<pre><code>## ✓ Fold03: recipe</code></pre>
+<pre><code>## i Fold03: model 1/5</code></pre>
+<pre><code>## ✓ Fold03: model 1/5</code></pre>
+<pre><code>## i Fold03: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold03: model 2/5</code></pre>
+<pre><code>## ✓ Fold03: model 2/5</code></pre>
+<pre><code>## i Fold03: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold03: model 3/5</code></pre>
+<pre><code>## ✓ Fold03: model 3/5</code></pre>
+<pre><code>## i Fold03: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold03: model 4/5</code></pre>
+<pre><code>## ✓ Fold03: model 4/5</code></pre>
+<pre><code>## i Fold03: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold03: model 5/5</code></pre>
+<pre><code>## ✓ Fold03: model 5/5</code></pre>
+<pre><code>## i Fold03: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold04: recipe</code></pre>
+<pre><code>## ✓ Fold04: recipe</code></pre>
+<pre><code>## i Fold04: model 1/5</code></pre>
+<pre><code>## ✓ Fold04: model 1/5</code></pre>
+<pre><code>## i Fold04: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold04: model 2/5</code></pre>
+<pre><code>## ✓ Fold04: model 2/5</code></pre>
+<pre><code>## i Fold04: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold04: model 3/5</code></pre>
+<pre><code>## ✓ Fold04: model 3/5</code></pre>
+<pre><code>## i Fold04: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold04: model 4/5</code></pre>
+<pre><code>## ✓ Fold04: model 4/5</code></pre>
+<pre><code>## i Fold04: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold04: model 5/5</code></pre>
+<pre><code>## ✓ Fold04: model 5/5</code></pre>
+<pre><code>## i Fold04: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold05: recipe</code></pre>
+<pre><code>## ✓ Fold05: recipe</code></pre>
+<pre><code>## i Fold05: model 1/5</code></pre>
+<pre><code>## ✓ Fold05: model 1/5</code></pre>
+<pre><code>## i Fold05: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold05: model 2/5</code></pre>
+<pre><code>## ✓ Fold05: model 2/5</code></pre>
+<pre><code>## i Fold05: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold05: model 3/5</code></pre>
+<pre><code>## ✓ Fold05: model 3/5</code></pre>
+<pre><code>## i Fold05: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold05: model 4/5</code></pre>
+<pre><code>## ✓ Fold05: model 4/5</code></pre>
+<pre><code>## i Fold05: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold05: model 5/5</code></pre>
+<pre><code>## ✓ Fold05: model 5/5</code></pre>
+<pre><code>## i Fold05: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold06: recipe</code></pre>
+<pre><code>## ✓ Fold06: recipe</code></pre>
+<pre><code>## i Fold06: model 1/5</code></pre>
+<pre><code>## ✓ Fold06: model 1/5</code></pre>
+<pre><code>## i Fold06: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold06: model 2/5</code></pre>
+<pre><code>## ✓ Fold06: model 2/5</code></pre>
+<pre><code>## i Fold06: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold06: model 3/5</code></pre>
+<pre><code>## ✓ Fold06: model 3/5</code></pre>
+<pre><code>## i Fold06: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold06: model 4/5</code></pre>
+<pre><code>## ✓ Fold06: model 4/5</code></pre>
+<pre><code>## i Fold06: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold06: model 5/5</code></pre>
+<pre><code>## ✓ Fold06: model 5/5</code></pre>
+<pre><code>## i Fold06: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold07: recipe</code></pre>
+<pre><code>## ✓ Fold07: recipe</code></pre>
+<pre><code>## i Fold07: model 1/5</code></pre>
+<pre><code>## ✓ Fold07: model 1/5</code></pre>
+<pre><code>## i Fold07: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold07: model 2/5</code></pre>
+<pre><code>## ✓ Fold07: model 2/5</code></pre>
+<pre><code>## i Fold07: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold07: model 3/5</code></pre>
+<pre><code>## ✓ Fold07: model 3/5</code></pre>
+<pre><code>## i Fold07: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold07: model 4/5</code></pre>
+<pre><code>## ✓ Fold07: model 4/5</code></pre>
+<pre><code>## i Fold07: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold07: model 5/5</code></pre>
+<pre><code>## ✓ Fold07: model 5/5</code></pre>
+<pre><code>## i Fold07: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold08: recipe</code></pre>
+<pre><code>## ✓ Fold08: recipe</code></pre>
+<pre><code>## i Fold08: model 1/5</code></pre>
+<pre><code>## ✓ Fold08: model 1/5</code></pre>
+<pre><code>## i Fold08: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold08: model 2/5</code></pre>
+<pre><code>## ✓ Fold08: model 2/5</code></pre>
+<pre><code>## i Fold08: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold08: model 3/5</code></pre>
+<pre><code>## ✓ Fold08: model 3/5</code></pre>
+<pre><code>## i Fold08: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold08: model 4/5</code></pre>
+<pre><code>## ✓ Fold08: model 4/5</code></pre>
+<pre><code>## i Fold08: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold08: model 5/5</code></pre>
+<pre><code>## ✓ Fold08: model 5/5</code></pre>
+<pre><code>## i Fold08: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold09: recipe</code></pre>
+<pre><code>## ✓ Fold09: recipe</code></pre>
+<pre><code>## i Fold09: model 1/5</code></pre>
+<pre><code>## ✓ Fold09: model 1/5</code></pre>
+<pre><code>## i Fold09: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold09: model 2/5</code></pre>
+<pre><code>## ✓ Fold09: model 2/5</code></pre>
+<pre><code>## i Fold09: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold09: model 3/5</code></pre>
+<pre><code>## ✓ Fold09: model 3/5</code></pre>
+<pre><code>## i Fold09: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold09: model 4/5</code></pre>
+<pre><code>## ✓ Fold09: model 4/5</code></pre>
+<pre><code>## i Fold09: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold09: model 5/5</code></pre>
+<pre><code>## ✓ Fold09: model 5/5</code></pre>
+<pre><code>## i Fold09: model 5/5 (predictions)</code></pre>
+<pre><code>## i Fold10: recipe</code></pre>
+<pre><code>## ✓ Fold10: recipe</code></pre>
+<pre><code>## i Fold10: model 1/5</code></pre>
+<pre><code>## ✓ Fold10: model 1/5</code></pre>
+<pre><code>## i Fold10: model 1/5 (predictions)</code></pre>
+<pre><code>## i Fold10: model 2/5</code></pre>
+<pre><code>## ✓ Fold10: model 2/5</code></pre>
+<pre><code>## i Fold10: model 2/5 (predictions)</code></pre>
+<pre><code>## i Fold10: model 3/5</code></pre>
+<pre><code>## ✓ Fold10: model 3/5</code></pre>
+<pre><code>## i Fold10: model 3/5 (predictions)</code></pre>
+<pre><code>## i Fold10: model 4/5</code></pre>
+<pre><code>## ✓ Fold10: model 4/5</code></pre>
+<pre><code>## i Fold10: model 4/5 (predictions)</code></pre>
+<pre><code>## i Fold10: model 5/5</code></pre>
+<pre><code>## ✓ Fold10: model 5/5</code></pre>
+<pre><code>## i Fold10: model 5/5 (predictions)</code></pre>
+<pre class="r"><code>tictoc::toc()</code></pre>
+<pre><code>## 21.972 sec elapsed</code></pre>
+<pre class="r"><code>collect_metrics(final_mod_tuning)</code></pre>
+<pre><code>## # A tibble: 100 x 8
+##          penalty mixture .metric .estimator   mean     n std_err .config
+##            &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+##  1 0.0000000001        0 rmse    standard   96.5      10  3.65   Model01
+##  2 0.0000000001        0 rsq     standard    0.365    10  0.0223 Model01
+##  3 0.00000000129       0 rmse    standard   96.5      10  3.65   Model02
+##  4 0.00000000129       0 rsq     standard    0.365    10  0.0223 Model02
+##  5 0.0000000167        0 rmse    standard   96.5      10  3.65   Model03
+##  6 0.0000000167        0 rsq     standard    0.365    10  0.0223 Model03
+##  7 0.000000215         0 rmse    standard   96.5      10  3.65   Model04
+##  8 0.000000215         0 rsq     standard    0.365    10  0.0223 Model04
+##  9 0.00000278          0 rmse    standard   96.5      10  3.65   Model05
+## 10 0.00000278          0 rsq     standard    0.365    10  0.0223 Model05
+## # … with 90 more rows</code></pre>
+<pre class="r"><code>final_mod_tuning %&gt;%
+    show_best(metric = &quot;rmse&quot;, n = 5)</code></pre>
+<pre><code>## # A tibble: 5 x 8
+##        penalty mixture .metric .estimator  mean     n std_err .config
+##          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 1               0.75 rmse    standard    96.5    10    3.66 Model40
+## 2 1               0.5  rmse    standard    96.5    10    3.66 Model30
+## 3 1               1    rmse    standard    96.5    10    3.66 Model50
+## 4 1               0.25 rmse    standard    96.5    10    3.66 Model20
+## 5 0.0000000001    0    rmse    standard    96.5    10    3.65 Model01</code></pre>
+<pre class="r"><code>final_mod_tuning_select_best &lt;- final_mod_tuning %&gt;% 
+  select_best(metric = &quot;rmse&quot;)
+
+final_mod_tuning_select_best</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   penalty mixture .config
+##     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1       1    0.75 Model40</code></pre>
+<pre class="r"><code>finalized_mod &lt;- final_mod %&gt;%
+    finalize_model(final_mod_tuning_select_best)
+    
+
+finalized_mod</code></pre>
+<pre><code>## Linear Regression Model Specification (regression)
+## 
+## Main Arguments:
+##   penalty = 1
+##   mixture = 0.75
+## 
+## Computational engine: glmnet</code></pre>
+<pre class="r"><code>rec_final &lt;- rec %&gt;% 
+    finalize_recipe(final_mod_tuning_select_best)
+
+rec_final</code></pre>
+<pre><code>## Data Recipe
+## 
+## Inputs:
+## 
+##       role #variables
+##    id vars          6
+##    outcome          1
+##  predictor         32
+## 
+## Operations:
+## 
+## Variable mutation for tst_dt
+## Novel factor level assignment for all_nominal()
+## Unknown factor level assignment for all_nominal()
+## Sparse, unbalanced variable filter on all_predictors()
+## Median Imputation for all_numeric(), ...
+## Dummy variables from all_nominal(), -has_role(&quot;id vars&quot;)
+## Sparse, unbalanced variable filter on all_predictors()
+## Interactions with lat:lon</code></pre>
+<pre class="r"><code>#finalize model
+
+final_mod_2 &lt;- linear_reg(penalty = 0.01, 
+                        mixture = 0.3)  %&gt;% 
+  set_engine(&quot;glmnet&quot;) %&gt;%
+  set_mode(&quot;regression&quot;)  
+ 
+
+full_fit_2 &lt;- fit(final_mod_2, 
+                score ~ ., data = select(baked_train, -contains(&quot;id&quot;), -ncessch))</code></pre>
+</div>
+<div id="model-prediction" class="section level2">
+<h2>Model Prediction</h2>
+<pre class="r"><code>baked_test &lt;- rec_final %&gt;% prep() %&gt;% bake(full_test)
+
+head(baked_test)</code></pre>
+<pre><code>## # A tibble: 6 x 26
+##      id attnd_dist_inst… attnd_schl_inst… enrl_grd tst_dt partic_dist_ins…
+##   &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;            &lt;dbl&gt;
+## 1     1             2142             1330        6 1.53e9             2142
+## 2     2             2138              785        5 1.53e9             2138
+## 3     3             1995             3400        8 1.53e9             1995
+## 4     5             2053             1773        8 1.53e9             2053
+## 5     7             1964              191        8 1.53e9             1964
+## 6    10             1948              184        8 1.53e9             1948
+## # … with 20 more variables: partic_schl_inst_id &lt;dbl&gt;, ncessch &lt;dbl&gt;,
+## #   lat &lt;dbl&gt;, lon &lt;dbl&gt;, score &lt;dbl&gt;, gndr_M &lt;dbl&gt;, ethnic_cd_H &lt;dbl&gt;,
+## #   ethnic_cd_M &lt;dbl&gt;, ethnic_cd_W &lt;dbl&gt;, tst_bnch_X2B &lt;dbl&gt;,
+## #   tst_bnch_X3B &lt;dbl&gt;, tst_bnch_G4 &lt;dbl&gt;, tst_bnch_G6 &lt;dbl&gt;,
+## #   tst_bnch_G7 &lt;dbl&gt;, sp_ed_fg_Y &lt;dbl&gt;, tag_ed_fg_Y &lt;dbl&gt;,
+## #   econ_dsvntg_Y &lt;dbl&gt;, ayp_lep_F &lt;dbl&gt;, ayp_lep_unknown &lt;dbl&gt;,
+## #   lat_x_lon &lt;dbl&gt;</code></pre>
+<pre class="r"><code>model_1_prediction &lt;- predict(full_fit_2, new_data = baked_test)
+
+head(model_1_prediction)</code></pre>
+<pre><code>## # A tibble: 6 x 1
+##   .pred
+##   &lt;dbl&gt;
+## 1 2331.
+## 2 2466.
+## 3 2585.
+## 4 2516.
+## 5 2478.
+## 6 2536.</code></pre>
+<pre class="r"><code>pred_frame &lt;- tibble(Id = full_test$id, Predicted = model_1_prediction$.pred)
+
+
+head(pred_frame)</code></pre>
+<pre><code>## # A tibble: 6 x 2
+##      Id Predicted
+##   &lt;dbl&gt;     &lt;dbl&gt;
+## 1     1     2331.
+## 2     2     2466.
+## 3     3     2585.
+## 4     5     2516.
+## 5     7     2478.
+## 6    10     2536.</code></pre>
+</div>
+
+<p>
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+<img alt="Creative Commons License" style="border-width:0" src="by-nc.png" width="65"/></a>
+</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

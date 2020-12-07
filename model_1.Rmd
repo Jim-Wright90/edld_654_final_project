@@ -67,6 +67,24 @@ frl <- frl %>%
 
 frl
 
+sheets <- readxl::excel_sheets(here::here("data",
+"fallmembershipreport_20192020.xlsx"))
+
+ode_schools <- readxl::read_xlsx(here::here("data",
+"fallmembershipreport_20192020.xlsx"), sheet = sheets[4])
+
+ethnicities <- ode_schools %>%
+select(attnd_schl_inst_id = `Attending School ID`,
+sch_name = `School Name`,
+contains("%")) %>%
+janitor::clean_names()
+names(ethnicities) <- gsub("x2019_20_percent", "p", names(ethnicities))
+
+data <- left_join(data, ethnicities)
+head(data)
+colnames(data)
+
+data <- left_join(data, frl)
 ```
 
 ## Splits 
@@ -211,4 +229,4 @@ write_csv(pred_frame, "model_1_predictions.csv")
 
 ## Model Summary 
 
-With 1% of the data extracted, the model obtained a RMSE of 96.5%. Larger samples of data were extracted to explore how the change in sample size would impact the model. Running the model with 7% of the data reduced the RMSE to 91.5%, while running the model with 10% and 15% of the data both reduced the RMSE to 91.1%. To be consistent with all the models used for the final project, the final model was run with 7% of the data. 
+With 1% of the data extracted, the model obtained a RMSE of 96.5%. The class training data was joined with the FRL and ethnicities data, and 7% of the data was sampled to run the model, which reduced the RMSE to 90.8% 

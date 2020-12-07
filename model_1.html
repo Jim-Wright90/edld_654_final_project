@@ -401,7 +401,7 @@ div.tocify {
 
 (data_split &lt;- initial_split(data))</code></pre>
 <pre><code>## &lt;Analysis/Assess/Total&gt;
-## &lt;1421/473/1894&gt;</code></pre>
+## &lt;9945/3315/13260&gt;</code></pre>
 <pre class="r"><code>train &lt;- training(data_split)
 test &lt;- testing(data_split)
 
@@ -630,40 +630,40 @@ final_mod_tuning &lt;- tune_grid(final_mod, preprocessor = rec, resamples = cv_s
 <pre><code>## ✓ Fold10: model 5/5</code></pre>
 <pre><code>## i Fold10: model 5/5 (predictions)</code></pre>
 <pre class="r"><code>tictoc::toc()</code></pre>
-<pre><code>## 21.972 sec elapsed</code></pre>
+<pre><code>## 35.005 sec elapsed</code></pre>
 <pre class="r"><code>collect_metrics(final_mod_tuning)</code></pre>
 <pre><code>## # A tibble: 100 x 8
 ##          penalty mixture .metric .estimator   mean     n std_err .config
 ##            &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
-##  1 0.0000000001        0 rmse    standard   96.5      10  3.65   Model01
-##  2 0.0000000001        0 rsq     standard    0.365    10  0.0223 Model01
-##  3 0.00000000129       0 rmse    standard   96.5      10  3.65   Model02
-##  4 0.00000000129       0 rsq     standard    0.365    10  0.0223 Model02
-##  5 0.0000000167        0 rmse    standard   96.5      10  3.65   Model03
-##  6 0.0000000167        0 rsq     standard    0.365    10  0.0223 Model03
-##  7 0.000000215         0 rmse    standard   96.5      10  3.65   Model04
-##  8 0.000000215         0 rsq     standard    0.365    10  0.0223 Model04
-##  9 0.00000278          0 rmse    standard   96.5      10  3.65   Model05
-## 10 0.00000278          0 rsq     standard    0.365    10  0.0223 Model05
+##  1 0.0000000001        0 rmse    standard   91.5      10 1.06    Model01
+##  2 0.0000000001        0 rsq     standard    0.392    10 0.00619 Model01
+##  3 0.00000000129       0 rmse    standard   91.5      10 1.06    Model02
+##  4 0.00000000129       0 rsq     standard    0.392    10 0.00619 Model02
+##  5 0.0000000167        0 rmse    standard   91.5      10 1.06    Model03
+##  6 0.0000000167        0 rsq     standard    0.392    10 0.00619 Model03
+##  7 0.000000215         0 rmse    standard   91.5      10 1.06    Model04
+##  8 0.000000215         0 rsq     standard    0.392    10 0.00619 Model04
+##  9 0.00000278          0 rmse    standard   91.5      10 1.06    Model05
+## 10 0.00000278          0 rsq     standard    0.392    10 0.00619 Model05
 ## # … with 90 more rows</code></pre>
 <pre class="r"><code>final_mod_tuning %&gt;%
     show_best(metric = &quot;rmse&quot;, n = 5)</code></pre>
 <pre><code>## # A tibble: 5 x 8
-##        penalty mixture .metric .estimator  mean     n std_err .config
-##          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
-## 1 1               0.75 rmse    standard    96.5    10    3.66 Model40
-## 2 1               0.5  rmse    standard    96.5    10    3.66 Model30
-## 3 1               1    rmse    standard    96.5    10    3.66 Model50
-## 4 1               0.25 rmse    standard    96.5    10    3.66 Model20
-## 5 0.0000000001    0    rmse    standard    96.5    10    3.65 Model01</code></pre>
+##         penalty mixture .metric .estimator  mean     n std_err .config
+##           &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 0.0000000001      0.5 rmse    standard    91.5    10    1.06 Model21
+## 2 0.00000000129     0.5 rmse    standard    91.5    10    1.06 Model22
+## 3 0.0000000167      0.5 rmse    standard    91.5    10    1.06 Model23
+## 4 0.000000215       0.5 rmse    standard    91.5    10    1.06 Model24
+## 5 0.00000278        0.5 rmse    standard    91.5    10    1.06 Model25</code></pre>
 <pre class="r"><code>final_mod_tuning_select_best &lt;- final_mod_tuning %&gt;% 
   select_best(metric = &quot;rmse&quot;)
 
 final_mod_tuning_select_best</code></pre>
 <pre><code>## # A tibble: 1 x 3
-##   penalty mixture .config
-##     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
-## 1       1    0.75 Model40</code></pre>
+##        penalty mixture .config
+##          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1 0.0000000001     0.5 Model21</code></pre>
 <pre class="r"><code>finalized_mod &lt;- final_mod %&gt;%
     finalize_model(final_mod_tuning_select_best)
     
@@ -672,8 +672,8 @@ finalized_mod</code></pre>
 <pre><code>## Linear Regression Model Specification (regression)
 ## 
 ## Main Arguments:
-##   penalty = 1
-##   mixture = 0.75
+##   penalty = 1e-10
+##   mixture = 0.5
 ## 
 ## Computational engine: glmnet</code></pre>
 <pre class="r"><code>rec_final &lt;- rec %&gt;% 
@@ -737,12 +737,12 @@ head(model_1_prediction)</code></pre>
 <pre><code>## # A tibble: 6 x 1
 ##   .pred
 ##   &lt;dbl&gt;
-## 1 2331.
+## 1 2349.
 ## 2 2466.
-## 3 2585.
-## 4 2516.
-## 5 2478.
-## 6 2536.</code></pre>
+## 3 2568.
+## 4 2514.
+## 5 2477.
+## 6 2522.</code></pre>
 <pre class="r"><code>pred_frame &lt;- tibble(Id = full_test$id, Predicted = model_1_prediction$.pred)
 
 
@@ -750,12 +750,16 @@ head(pred_frame)</code></pre>
 <pre><code>## # A tibble: 6 x 2
 ##      Id Predicted
 ##   &lt;dbl&gt;     &lt;dbl&gt;
-## 1     1     2331.
+## 1     1     2349.
 ## 2     2     2466.
-## 3     3     2585.
-## 4     5     2516.
-## 5     7     2478.
-## 6    10     2536.</code></pre>
+## 3     3     2568.
+## 4     5     2514.
+## 5     7     2477.
+## 6    10     2522.</code></pre>
+</div>
+<div id="model-summary" class="section level2">
+<h2>Model Summary</h2>
+<p>With 1% of the data extracted, the model obtained a RMSE of 96.5%. Larger samples of data were extracted to explore how the change in sample size would impact the model. Running the model with 7% of the data reduced the RMSE to 91.5%, while running the model with 10% and 15% of the data both reduced the RMSE to 91.1%. To be consistent with all the models used for the final project, the final model was run with 7% of the data.</p>
 </div>
 
 <p>
